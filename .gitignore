@@ -1,0 +1,21 @@
+# PyCharm specific files
+.idea/
+*.iml
+*.pyc
+*.pyo
+__pycache__/
+.pytest_cache/
+
+# Virtual environment
+venv/
+env/
+
+# Test files
+*.py[twx]
+test_*
+*_test.py
+
+# Local configuration files
+*.env
+local_settings.py
+secrets.py
