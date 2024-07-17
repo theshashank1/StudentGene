@@ -17,3 +17,7 @@ def generate_quiz(request):
     return HttpResponse("quiz Generated", status=200)
 
     pass
+
+def summarize(request):
+    print("summarize")
+    return HttpResponse("Summarize", status=200)
