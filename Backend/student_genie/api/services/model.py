@@ -1,13 +1,14 @@
 """
-Module: model_service.py
+Model Service for Generative AI
 
-This module provides the ModelService class for loading and interacting with a generative AI model.
+Provides a service for loading and interacting with generative AI models from LangChain Google library.
 """
+
 
 import os
 from dotenv import load_dotenv
 
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 
 
 class ModelService :
@@ -36,7 +37,7 @@ class ModelService :
         if self.GOOGLE_API_KEY is None :
             raise ValueError("No GOOGLE_API_KEY set for Django application")
 
-    def get_model(self, model_name="gemini-1.5-flash") :
+    def get_llm_model(self, model_name="gemini-1.5-flash") :
         """
         This function is used to instantiate a ChatGoogleGenerativeAI model.
 
@@ -49,6 +50,19 @@ class ModelService :
 
         return ChatGoogleGenerativeAI(model=model_name)
 
+    def get_embedding_model(self, model_name="models/text-embedding-004"):
+        """
+        Returns a GoogleGenerativeAIEmbeddings model for text embedding.
+
+        Args:
+            model_name (str, optional): Name of the embedding model. Defaults to "models/text-embedding-004".
+
+        Returns:
+            GoogleGenerativeAIEmbeddings: The loaded text embedding model.
+        """
+        return GoogleGenerativeAIEmbeddings(model=model_name)
+
+
 
 if __name__ == "__main__" :
     """
@@ -56,6 +70,6 @@ if __name__ == "__main__" :
     """
 
     service = ModelService()
-    llm = service.get_model()
+    llm = service.get_llm_model()
 
     print(llm.invoke("What is python"))
