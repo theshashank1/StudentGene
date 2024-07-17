@@ -17,20 +17,20 @@ def get_transcription(*videos: str) -> str :
     """
 
     doc = ""
-    try :
+    try:
         if len(videos) == 1 :
             transcription = YouTubeTranscriptApi.get_transcript(videos[0])
             for segment in transcription :
                 doc += segment['text'] + " "
             return doc.strip()
-        else :
+        else:
             transcriptions, _ = YouTubeTranscriptApi.get_transcripts(list(videos))
             for video_id, transcription in transcriptions.items() :
                 doc += "\n\n\n\n"  # Separate transcripts with four newlines
                 for segment in transcription :
                     doc += segment['text'] + " "
             return doc.strip()
-    except Exception as e :
+    except Exception as e:
         return str(e)
 
 
