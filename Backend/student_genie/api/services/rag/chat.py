@@ -89,7 +89,7 @@ class ChatService:
 
 if __name__ == "__main__":
     try:
-        pdf_path = "E:\Music_and_Movie_Recommendation_System (1).pdf"  # Replace with the correct path to your PDF
+        pdf_path = r"C:\Users\hp\Downloads\pdf-sample.pdf"  # Replace with the correct path to your PDF
         chat_service = ChatService(pdf_path)
 
         while True:
