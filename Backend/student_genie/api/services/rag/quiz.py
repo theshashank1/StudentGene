@@ -13,7 +13,6 @@ from api.services.model import ModelService
 from api.utils.load_pdf import load_pdf
 from api.utils.youtube import load_video, get_video_id
 
-
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 

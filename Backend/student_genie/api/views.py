@@ -15,7 +15,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 chat_service=None
 pdfs=Files.objects.all()
-pdf_path=Path("C:/Users/hp/OneDrive/Desktop/WorkingWithGit/StudentGenie/Backend/student_genie/media/"+str(pdfs.first()))
+pdf_path=Path("C:/Users/chand/OneDrive/Desktop/GitHub/StudentGenie/StudentGenie/Backend/student_genie/media/"+str(pdfs.first()))
 class FilesViewSet(viewsets.ModelViewSet):
     queryset = Files.objects.all()
     serializer_class = FilesSerializer
@@ -30,16 +30,20 @@ def register(request):
     pass
 
 def generate_quiz(request):
-    global pdf_path
+    global chat_service, pdf_path
+    if chat_service is None:
+         chat_service=ChatService(pdf_path)
     quiz_service=QuizService(pdf_path)
     questions=quiz_service.quiz()
     return JsonResponse({'data': questions})
 
+def summarize(request):
+    print("summarize")
+    return HttpResponse("Summarize", status=200)
+
 def init_chat(request):
     global pdf_path
     global chat_service
-    if chat_service is None:
-            chat_service=ChatService(pdf_path)
     chat_service=ChatService(pdf_path)
     print(chat_service)
     # request.session['chat_service'] = ChatService(pdf_path)
