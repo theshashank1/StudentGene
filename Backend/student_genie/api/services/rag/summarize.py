@@ -14,9 +14,9 @@ project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..
 print(project_root)
 sys.path.insert(0, project_root)
 
-from student_genie.api.services.model import ModelService
-from student_genie.api.utils.load_pdf import load_pdf
-from student_genie.api.utils.youtube import load_video, get_video_id
+from api.services.model import ModelService
+from api.utils.load_pdf import load_pdf
+from api.utils.youtube import load_video, get_video_id
 
 class SummarizeService:
     def __init__(self, path: str, is_video = False):
@@ -36,7 +36,7 @@ class SummarizeService:
                 docs = [Document(page_content=video_text)]
 
             # Map
-            map_template = """The following is a set of documents
+            map_template = """The following is a set of inputs
             {docs}
             Based on this list of docs, please identify the main themes 
             Helpful Answer:"""

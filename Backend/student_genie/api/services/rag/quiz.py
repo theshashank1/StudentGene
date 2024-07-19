@@ -4,15 +4,15 @@ import traceback
 import json
 
 from langchain_core.documents import Document
-
 # Add the project root directory to the Python path
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
 print(project_root)
 sys.path.insert(0, project_root)
 
-from student_genie.api.services.model import ModelService
-from student_genie.api.utils.load_pdf import load_pdf
-from student_genie.api.utils.youtube import load_video, get_video_id
+from api.services.model import ModelService
+from api.utils.load_pdf import load_pdf
+from api.utils.youtube import load_video, get_video_id
+
 
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
