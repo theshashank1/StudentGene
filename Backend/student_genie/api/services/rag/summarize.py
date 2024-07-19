@@ -5,6 +5,7 @@ import traceback
 from langchain.chains import MapReduceDocumentsChain, ReduceDocumentsChain
 from langchain.chains.llm import LLMChain
 from langchain.chains.combine_documents.stuff import StuffDocumentsChain
+from langchain_core.documents import Document
 from langchain_core.prompts import PromptTemplate
 from langchain_text_splitters import CharacterTextSplitter
 
@@ -15,9 +16,10 @@ sys.path.insert(0, project_root)
 
 from student_genie.api.services.model import ModelService
 from student_genie.api.utils.load_pdf import load_pdf
+from student_genie.api.utils.youtube import load_video, get_video_id
 
 class SummarizeService:
-    def __init__(self, pdf_path: str):
+    def __init__(self, path: str, video = 0):
         self.service = ModelService()
         self.llm = self.service.get_llm_model()  # Note: Added parentheses to call the method
 
@@ -25,7 +27,13 @@ class SummarizeService:
             raise Exception('LLM not found')
 
         try:
-            docs = load_pdf(pdf_path)
+
+            docs = None
+            if not video:
+                docs = load_pdf(path)
+            else:
+                video_text = load_video(get_video_id(path))
+                docs = [Document(page_content=video_text)]
 
             # Map
             map_template = """The following is a set of documents
@@ -93,7 +101,8 @@ class SummarizeService:
 
 if __name__ == "__main__":
     try:
-        service = SummarizeService(r"E:\Music_and_Movie_Recommendation_System (1).pdf")
+        # service = SummarizeService(r"E:\Music_and_Movie_Recommendation_System (1).pdf")
+        service = SummarizeService("https://www.youtube.com/watch?v=o11J4oO-P28&t=1198s", video=1)
         summary = service.summarize()
         print(summary)
     except Exception as e:
