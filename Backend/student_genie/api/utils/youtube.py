@@ -1,6 +1,6 @@
 import re
 
-def get_youtube_video_id(url):
+def get_video_id(url):
     """
   Extracts the video ID from a YouTube URL.
 
