@@ -82,8 +82,9 @@ class ChatService:
         try:
             # Invoke the chain with the question
             output = self.chain.invoke(question)
-            json_data = json.loads(output)
-            return json_data
+            # json_data = json.loads(output)
+            # return json_data
+            return output
         except Exception as e:
             print(f"An error occurred during chat: {str(e)}")
             traceback.print_exc()
