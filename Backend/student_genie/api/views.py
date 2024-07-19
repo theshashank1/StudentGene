@@ -49,10 +49,13 @@ def init_chat(request):
 
 @csrf_exempt
 def chat(request):
+    global chat_service
+    if chat_service is None:
+            global pdf_path
+            chat_service=ChatService(pdf_path)
     if request.method=='POST':
         question=request.POST['question']
         # chat_service = pickle.loads(request.session.get('chat_service'))
-        global chat_service
         res = chat_service.chat(question)
     # return HttpResponse(res, status=200)
     return JsonResponse({'data': res})
