@@ -2,13 +2,14 @@ import os
 import sys
 import traceback
 import re
+import json
 
 # Add the project root directory to the Python path
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
 sys.path.insert(0, project_root)
 
-from student_genie.api.services.model import ModelService
-from student_genie.api.utils.load_pdf import load_pdf
+from api.services.model import ModelService
+from api.utils.load_pdf import load_pdf
 
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
@@ -120,7 +121,14 @@ class QuizService:
         try :
             # Invoke the chain
             output = self.chain.invoke({})
-            return output
+            # Use regex to parse JSON-like content
+            # pattern = re.compile(r'\[\s*(\{(?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*\})\s*\]')
+            # matches = pattern.findall(output)
+
+            # # Convert to JSON format
+            # json_str = '[' + ','.join(matches) + ']'
+            json_data = json.loads(output)
+            return json_data
         except Exception as e :
             print(f"An error occurred during quiz generation: {str(e)}")
             traceback.print_exc()

@@ -12,5 +12,7 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('quiz/', views.generate_quiz, name='quiz'),
     path('summarize/', views.summarize, name='summarize'),
+    path('init_chat/', views.init_chat, name='init_chat'),
+    path('chat/', views.chat, name='chat'),
     path('api/', include(router.urls)),
 ]
