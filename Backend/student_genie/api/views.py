@@ -6,6 +6,7 @@ from .serializers import FilesSerializer
 from .models import Files
 from .services.rag.chat import ChatService
 from .services.rag.quiz import QuizService
+from .services.rag.summarize import SummarizeService
 import pickle
 from django.views.decorators.csrf import csrf_exempt
 
@@ -34,10 +35,6 @@ def generate_quiz(request):
     questions=quiz_service.quiz()
     return JsonResponse({'data': questions})
 
-def summarize(request):
-    print("summarize")
-    return HttpResponse("Summarize", status=200)
-
 def init_chat(request):
     global pdf_path
     global chat_service
@@ -61,3 +58,16 @@ def chat(request):
         res = chat_service.chat(question)
     # return HttpResponse(res, status=200)
     return JsonResponse({'data': res})
+
+def summarize_doc(request):
+    global pdf_path
+    service=SummarizeService(pdf_path)
+    summary=service.summarize()
+    return JsonResponse({'data': summary})
+
+@csrf_exempt
+def summarize_youtube(request):
+    if request.method=='POST':
+        service=SummarizeService(request.POST['url'], 1)
+        summary=service.summarize()
+        return JsonResponse({'data': summary})
