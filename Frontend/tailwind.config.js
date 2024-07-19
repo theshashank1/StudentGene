@@ -11,6 +11,7 @@ module.exports = {
       colors: {
         customRed: '#f23f54',
       },
+      
     },
   },
   plugins: [],

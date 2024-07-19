@@ -36,5 +36,6 @@ def get_transcription(*videos: str) -> str :
 
 # Example usage
 if __name__ == '__main__' :
-    text = get_transcription("1aA1WGON49E", "fLeJJPxua3E")
+    # text = get_transcription("1aA1WGON49E", "fLeJJPxua3E")
+    text=get_transcription("aVA7aXOH1pk")
     print(text)
