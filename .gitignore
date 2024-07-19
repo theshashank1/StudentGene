@@ -19,3 +19,5 @@ test_*
 *.env
 local_settings.py
 secrets.py
+
+.env
