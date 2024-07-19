@@ -72,4 +72,4 @@ if __name__ == "__main__" :
     service = ModelService()
     llm = service.get_llm_model()
 
-    print(llm.invoke("What is python"))
+    print(llm.invoke("What is python").content)
