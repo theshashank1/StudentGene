@@ -128,7 +128,7 @@ class QuizService:
 
 
 if __name__ == "__main__" :
-    pdf = r"E:\Music_and_Movie_Recommendation_System (1).pdf"
+    pdf = r"C:\Users\hp\Downloads\pdf-sample.pdf"
     quiz_service = QuizService(pdf)
     questions = quiz_service.quiz()
 
