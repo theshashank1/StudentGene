@@ -1,14 +1,15 @@
 import os
 import sys
 import traceback
+import json
 
 # Add the project root directory to the Python path
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
 print(project_root)
 sys.path.insert(0, project_root)
 
-from student_genie.api.services.model import ModelService
-from student_genie.api.utils.load_pdf import load_pdf
+from api.services.model import ModelService
+from api.utils.load_pdf import load_pdf
 
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
@@ -81,6 +82,8 @@ class ChatService:
         try:
             # Invoke the chain with the question
             output = self.chain.invoke(question)
+            # json_data = json.loads(output)
+            # return json_data
             return output
         except Exception as e:
             print(f"An error occurred during chat: {str(e)}")
@@ -89,7 +92,8 @@ class ChatService:
 
 if __name__ == "__main__":
     try:
-        pdf_path = "E:\Music_and_Movie_Recommendation_System (1).pdf"  # Replace with the correct path to your PDF
+        # pdf_path = r"C:\Users\hp\Downloads\pdf-sample.pdf"  # Replace with the correct path to your PDF
+        pdf_path="..\media\store\pdfs\pdf-sample.pdf"
         chat_service = ChatService(pdf_path)
 
         while True:
