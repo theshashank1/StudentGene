@@ -1,8 +1,8 @@
-<<<<<<< HEAD
+import re
 from youtube_transcript_api import YouTubeTranscriptApi
 
 
-def get_transcription(*videos: str) -> str :
+def load_video(*videos: str) -> str :
     """
     Fetches transcripts from YouTube videos using youtube_transcript_api library.
 
@@ -18,48 +18,40 @@ def get_transcription(*videos: str) -> str :
     """
 
     doc = ""
-    try:
+    try :
         if len(videos) == 1 :
             transcription = YouTubeTranscriptApi.get_transcript(videos[0])
             for segment in transcription :
                 doc += segment['text'] + " "
             return doc.strip()
-        else:
+        else :
             transcriptions, _ = YouTubeTranscriptApi.get_transcripts(list(videos))
             for video_id, transcription in transcriptions.items() :
                 doc += "\n\n\n\n"  # Separate transcripts with four newlines
                 for segment in transcription :
                     doc += segment['text'] + " "
             return doc.strip()
-    except Exception as e:
+    except Exception as e :
         return str(e)
 
 
-# Example usage
-if __name__ == '__main__' :
-    # text = get_transcription("1aA1WGON49E", "fLeJJPxua3E")
-    text=get_transcription("aVA7aXOH1pk")
-    print(text)
-=======
-import re
-
-def get_video_id(url):
+def get_video_id(url) :
     """
-  Extracts the video ID from a YouTube URL.
+    Extracts the video ID from a YouTube URL.
 
-  This function uses a regular expression to extract the video ID from a YouTube URL. 
-  It supports various YouTube URL formats, including:
-     - Standard watch URLs (e.g., https://www.youtube.com/watch?v=dQw4w9WgXcQ)
-     - Shortened URLs (e.g., youtu.be/dQw4w9WgXcQ)
-     - Embedded URLs (e.g., youtube.com/embed/dQw4w9WgXcQ)
-     - Channel URLs with playlist or videos (e.g., youtube.com/user/RickAstleyVEVO/videos/)
+    This function uses a regular expression to extract the video ID from a YouTube URL. 
+    It supports various YouTube URL formats, including:
+       - Standard watch URLs (e.g., https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+       - Shortened URLs (e.g., youtu.be/dQw4w9WgXcQ)
+       - Embedded URLs (e.g., youtube.com/embed/dQw4w9WgXcQ)
+       - Channel URLs with playlist or videos (e.g., youtube.com/user/RickAstleyVEVO/videos/)
 
-  Args:
-    url: The YouTube URL from which to extract the video ID.
+    Args:
+      url: The YouTube URL from which to extract the video ID.
 
-  Returns:
-    The extracted video ID as a string, or None if the URL is invalid.
-  """
+    Returns:
+      The extracted video ID as a string, or None if the URL is invalid.
+    """
     # Regular expression for extracting YouTube video ID
     youtube_regex = (
         r'(?:https?:\/\/)?(?:www\.)?'
@@ -69,20 +61,20 @@ def get_video_id(url):
         'youtube\.com\/user\/\S+\/(?:playlist|videos)\/?|\S+\/)'
         '([a-zA-Z0-9_-]{11})'
     )
-    
+
     match = re.search(youtube_regex, url)
-    if match:
+    if match :
         return match.group(1)
-    else:
+    else :
         return None
 
-# Example usage
 
-if __name__=="__main__":
+# Example usage
+if __name__ == "__main__" :
     youtube_url = input("Enter YouTube URL: ")
-    video_id = get_youtube_video_id(youtube_url)
-    if video_id:
+    video_id = get_video_id(youtube_url)
+    if video_id :
         print(f"Video ID: {video_id}")
-    else:
+        print(load_video(video_id))
+    else :
         print("Invalid YouTube URL")
->>>>>>> c3dc02376c08e113d6048dd8d7ea824e0da70728
