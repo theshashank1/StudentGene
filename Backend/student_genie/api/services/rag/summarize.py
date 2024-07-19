@@ -19,7 +19,7 @@ from student_genie.api.utils.load_pdf import load_pdf
 from student_genie.api.utils.youtube import load_video, get_video_id
 
 class SummarizeService:
-    def __init__(self, path: str, video = 0):
+    def __init__(self, path: str, is_video = False):
         self.service = ModelService()
         self.llm = self.service.get_llm_model()  # Note: Added parentheses to call the method
 
@@ -29,7 +29,7 @@ class SummarizeService:
         try:
 
             docs = None
-            if not video:
+            if not is_video:
                 docs = load_pdf(path)
             else:
                 video_text = load_video(get_video_id(path))
