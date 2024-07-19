@@ -41,6 +41,8 @@ def summarize(request):
 def init_chat(request):
     global pdf_path
     global chat_service
+    if chat_service is None:
+            chat_service=ChatService(pdf_path)
     chat_service=ChatService(pdf_path)
     print(chat_service)
     # request.session['chat_service'] = ChatService(pdf_path)
