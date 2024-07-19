@@ -4,7 +4,6 @@ import traceback
 import json
 
 from langchain_core.documents import Document
-
 # Add the project root directory to the Python path
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
 print(project_root)

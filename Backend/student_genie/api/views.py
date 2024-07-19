@@ -6,6 +6,7 @@ from .serializers import FilesSerializer
 from .models import Files
 from .services.rag.chat import ChatService
 from .services.rag.quiz import QuizService
+from .services.rag.summarize import SummarizeService
 import pickle
 from django.views.decorators.csrf import csrf_exempt
 
@@ -40,14 +41,14 @@ def summarize(request):
     print("summarize")
     return HttpResponse("Summarize", status=200)
 
-# def init_chat(request):
-#     global pdf_path
-#     global chat_service
-#     chat_service=ChatService(pdf_path)
-#     print(chat_service)
-#     # request.session['chat_service'] = ChatService(pdf_path)
-#     # request.session['chat_service'] = pickle.dumps(chat_service)
-#     return HttpResponse("Model Trained on Data", status=200)
+def init_chat(request):
+    global pdf_path
+    global chat_service
+    chat_service=ChatService(pdf_path)
+    print(chat_service)
+    # request.session['chat_service'] = ChatService(pdf_path)
+    # request.session['chat_service'] = pickle.dumps(chat_service)
+    return HttpResponse("Model Trained on Data", status=200)
 
 @csrf_exempt
 def chat(request):
@@ -61,3 +62,16 @@ def chat(request):
         res = chat_service.chat(question)
     # return HttpResponse(res, status=200)
     return JsonResponse({'data': res})
+
+def summarize_doc(request):
+    global pdf_path
+    service=SummarizeService(pdf_path)
+    summary=service.summarize()
+    return JsonResponse({'data': summary})
+
+@csrf_exempt
+def summarize_youtube(request):
+    if request.method=='POST':
+        service=SummarizeService(request.POST['url'], 1)
+        summary=service.summarize()
+        return JsonResponse({'data': summary})
