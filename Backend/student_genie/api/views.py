@@ -8,6 +8,8 @@ from .services.rag.chat import ChatService
 from .services.rag.quiz import QuizService
 from .services.rag.summarize import SummarizeService
 import pickle
+import os
+import shutil
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -29,13 +31,21 @@ def register(request):
     return HttpResponse("registered")
     pass
 
+@csrf_exempt
 def generate_quiz(request):
-    global chat_service, pdf_path
-    if chat_service is None:
-         chat_service=ChatService(pdf_path)
-    quiz_service=QuizService(pdf_path)
-    questions=quiz_service.quiz()
-    return JsonResponse({'data': questions})
+    try:
+        shutil.rmtree("C:/Users/chand/OneDrive/Desktop/GitHub/StudentGenie/StudentGenie/Backend/student_genie/api/services/rag/chroma_db")
+    except Exception as e:
+        # handle the exception or log it
+        print(f"Error deleting directory: {e}")
+    if request.method=='POST':
+        quiz_service=QuizService(request.POST['url'], True)
+        questions=quiz_service.quiz()
+        return JsonResponse({'data': questions})
+    else:
+        quiz_service=QuizService(pdf_path)
+        questions=quiz_service.quiz()
+        return JsonResponse({'data': questions})
 
 def summarize(request):
     print("summarize")

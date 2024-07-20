@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaHome, FaUser, FaComments, FaCog,FaBook } from 'react-icons/fa';
+import { FaHome, FaUser, FaComments, FaYoutube,FaBook } from 'react-icons/fa';
 import { MdQuiz } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 const Sidebar = () => {
@@ -23,6 +23,11 @@ const Sidebar = () => {
         
         <Link to="/quiz" className="flex items-center justify-center md:justify-start space-x-2 p-2 hover:bg-gray-800 rounded">
           <MdQuiz  className="text-lg text-white md:text-2xl" />
+        </Link>
+
+        <Link to="/youtube" className="flex items-center justify-center md:justify-start space-x-2 p-2 hover:bg-gray-800 rounded">
+          <FaYoutube className="text-lg md:text-2xl" />
+       
         </Link>
 
         <Link to="/user" className="flex items-center justify-center md:justify-start space-x-2 p-2 hover:bg-gray-800 rounded">

@@ -4,4 +4,6 @@
 
 /* In your global CSS file */
 
-  
+.scrollbar-hidden::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+  }
