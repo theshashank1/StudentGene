@@ -3,13 +3,18 @@ import sys
 import traceback
 import json
 
-# Add the project root directory to the Python path
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
-print(project_root)
-sys.path.insert(0, project_root)
+# # Add the project root directory to the Python path
+# project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
+# print(project_root)
+# sys.path.insert(0, project_root)
 
-from api.services.model import ModelService
-from api.utils.load_pdf import load_pdf
+# from student_genie.api.services.model import ModelService
+# from student_genie.api.utils.load_pdf import load_pdf
+
+from ..model import ModelService
+from ...utils.load_pdf import load_pdf
+
+
 
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
@@ -93,7 +98,7 @@ class ChatService:
 if __name__ == "__main__":
     try:
         # pdf_path = r"C:\Users\hp\Downloads\pdf-sample.pdf"  # Replace with the correct path to your PDF
-        pdf_path="..\media\store\pdfs\pdf-sample.pdf"
+        pdf_path=r"E:/Music_and_Movie_Recommendation_System.pdf"
         chat_service = ChatService(pdf_path)
 
         while True:

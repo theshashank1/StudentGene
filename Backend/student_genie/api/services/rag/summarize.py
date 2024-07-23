@@ -14,9 +14,13 @@ project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..
 print(project_root)
 sys.path.insert(0, project_root)
 
-from api.services.model import ModelService
-from api.utils.load_pdf import load_pdf
-from api.utils.youtube import load_video, get_video_id
+# from student_genie.api.services.model import ModelService
+# from student_genie.api.utils.load_pdf import load_pdf
+# from student_genie.api.utils.youtube import load_video, get_video_id
+
+from ..model import ModelService
+from .. .utils.load_pdf import load_pdf
+from .. .utils.youtube import load_video, get_video_id
 
 class SummarizeService:
     def __init__(self, path: str, is_video = False):
@@ -102,7 +106,7 @@ class SummarizeService:
 if __name__ == "__main__":
     try:
         # service = SummarizeService(r"E:\Music_and_Movie_Recommendation_System (1).pdf")
-        service = SummarizeService("https://www.youtube.com/watch?v=o11J4oO-P28&t=1198s", video=1)
+        service = SummarizeService("https://www.youtube.com/watch?v=o11J4oO-P28&t=1198s", is_video=1)
         summary = service.summarize()
         print(summary)
     except Exception as e:
