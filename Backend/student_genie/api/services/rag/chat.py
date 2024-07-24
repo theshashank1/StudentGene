@@ -3,18 +3,9 @@ import sys
 import traceback
 import json
 
-# # Add the project root directory to the Python path
-# project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
-# print(project_root)
-# sys.path.insert(0, project_root)
 
-# from student_genie.api.services.model import ModelService
-# from student_genie.api.utils.load_pdf import load_pdf
-
-from ..model import ModelService
-from ...utils.load_pdf import load_pdf
-
-
+from api.services.model import ModelService
+from api.utils.load_pdf import load_pdf
 
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
@@ -23,15 +14,16 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 
-class ChatService:
-    def __init__(self, pdf_path):
+
+class ChatService :
+    def __init__(self, pdf_path) :
         self.service = ModelService()
         self.llm = self.service.get_llm_model()
 
-        if self.llm is None:
+        if self.llm is None :
             raise Exception('LLM not found')
 
-        try:
+        try :
             doc = load_pdf(pdf_path)
 
             # This will split the document into chunks with a specified size and overlap
@@ -57,7 +49,6 @@ class ChatService:
 
             self.retriever = self.vectorstore.as_retriever()
 
-
             # Define a template for the prompt
             template = """
             Answer the question based only on the following context:
@@ -72,41 +63,42 @@ class ChatService:
 
             # Define the chain or pipeline to execute the retrieval, prompt, model, and output parsing
             self.chain = (
-                {"context": self.retriever, "question": RunnablePassthrough()}
-                | self.prompt
-                | self.llm
-                | StrOutputParser()
+                    {"context" : self.retriever, "question" : RunnablePassthrough()}
+                    | self.prompt
+                    | self.llm
+                    | StrOutputParser()
             )
 
-        except Exception as e:
+        except Exception as e :
             print(f"An error occurred during initialization: {str(e)}")
             traceback.print_exc()
             raise
 
-    def chat(self, question):
-        try:
+    def chat(self, question) :
+        try :
             # Invoke the chain with the question
             output = self.chain.invoke(question)
             # json_data = json.loads(output)
             # return json_data
             return output
-        except Exception as e:
+        except Exception as e :
             print(f"An error occurred during chat: {str(e)}")
             traceback.print_exc()
             return "I'm sorry, but I encountered an error while processing your question."
 
-if __name__ == "__main__":
-    try:
+
+if __name__ == "__main__" :
+    try :
         # pdf_path = r"C:\Users\hp\Downloads\pdf-sample.pdf"  # Replace with the correct path to your PDF
-        pdf_path=r"E:/Music_and_Movie_Recommendation_System.pdf"
+        pdf_path = r"E:/Music_and_Movie_Recommendation_System.pdf"
         chat_service = ChatService(pdf_path)
 
-        while True:
+        while True :
             question = input("Enter your question (or 'quit' to exit): ")
-            if question.lower() == 'quit':
+            if question.lower() == 'quit' :
                 break
             response = chat_service.chat(question)
             print("Response:", response)
-    except Exception as e:
+    except Exception as e :
         print(f"An error occurred: {str(e)}")
         traceback.print_exc()

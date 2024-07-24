@@ -18,9 +18,11 @@ sys.path.insert(0, project_root)
 # from student_genie.api.utils.load_pdf import load_pdf
 # from student_genie.api.utils.youtube import load_video, get_video_id
 
-from ..model import ModelService
-from .. .utils.load_pdf import load_pdf
-from .. .utils.youtube import load_video, get_video_id
+
+
+from api.services.model import ModelService
+from api.utils.load_pdf import load_pdf
+from api.utils.youtube import load_video, get_video_id
 
 class SummarizeService:
     def __init__(self, path: str, is_video = False):
